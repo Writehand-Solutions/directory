@@ -13,6 +13,8 @@ import {
 import { NavSidebar } from "../components/nav"
 import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
+import Footer from "@/components/footer"
+import Navbar from "@/components/navbar"
 
 export const dynamic = "force-dynamic"
 
@@ -33,13 +35,8 @@ async function Page({ searchParams }: { searchParams: { search?: string } }) {
 
   return (
     <>
-      <NavSidebar
-        categories={filters.categories}
-        labels={filters.labels}
-        tags={filters.tags}
-      />
-
-      <div className="max-w-full px-2 md:pl-4 md:pr-0 pt-2">
+    <Navbar/>
+      <div className="max-w-full p-2">
         <FadeIn>
           <ResourceCardGrid
             sortedData={data}
@@ -69,6 +66,8 @@ async function Page({ searchParams }: { searchParams: { search?: string } }) {
           </ResourceCardGrid>
         </FadeIn>
       </div>
+                  <Footer/>
+      
     </>
   )
 }

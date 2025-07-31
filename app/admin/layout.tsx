@@ -3,6 +3,8 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/db/supabase/server"
 
 import { NavSidebar } from "@/components/nav"
+import Footer from "@/components/footer"
+import Navbar from "@/components/navbar"
 
 export default async function RootLayout({
   children,
@@ -25,9 +27,12 @@ export default async function RootLayout({
     return redirect("/")
   }
   return (
+    <>
+    <Navbar/>
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <NavSidebar />
       {children}
     </div>
+    <Footer/>
+    </>
   )
 }

@@ -29,13 +29,13 @@ export default async function ProductsPage({
 
   return (
     <>
-      <NavSidebar
+      {/* <NavSidebar
         categories={filters.categories}
         labels={filters.labels}
         tags={filters.tags}
-      />
+      /> */}
 
-      <div className=" max-w-full pt-4">
+      <div className="max-w-full p-2">
         <FadeIn>
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null}>
             {search ?? category ?? label ?? tag ? (

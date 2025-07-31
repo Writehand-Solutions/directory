@@ -7,6 +7,8 @@ import { FadeIn } from "@/components/cult/fade-in"
 import { NavSidebar } from "../../components/nav"
 import { getCachedFilters } from "../actions/cached_actions"
 import SubmitTool from "./form"
+import Footer from "@/components/footer"
+import Navbar from "@/components/navbar"
 
 export default async function ProtectedSubmitPage(): Promise<ReactElement> {
   let filters = await getCachedFilters()
@@ -22,12 +24,7 @@ export default async function ProtectedSubmitPage(): Promise<ReactElement> {
 
   return (
     <>
-      <NavSidebar
-        categories={filters.categories}
-        labels={filters.labels}
-        tags={filters.tags}
-      />
-
+     <Navbar/>
       <div className="flex flex-col md:flex-row items-start justify-center py-12 px-4 md:px-0">
         <div className="flex flex-col items-start justify-center gap-2 md:pl-48">
           <div className="flex items-center space-x-2">
@@ -55,6 +52,8 @@ export default async function ProtectedSubmitPage(): Promise<ReactElement> {
           </div>
         </div>
       </div>
+            <Footer/>
+
     </>
   )
 }
