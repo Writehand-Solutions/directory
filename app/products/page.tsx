@@ -26,7 +26,6 @@ export default async function ProductsPage({
   const { search, category, label, tag } = searchParams
   const data = await getProducts(search, category, label, tag)
   let filters = await getCachedFilters()
-
   return (
     <>
       {/* <NavSidebar

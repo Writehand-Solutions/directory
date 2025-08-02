@@ -11,7 +11,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
   return (
     <div className="flex flex-col items-center md:items-start md:px-2 justify-center gap-2 md:ml-12">
       <div className="flex items-center space-x-2">
-        <h1 className="text-5xl font-black text-left">mk_dir</h1>
+        <h1 className="text-5xl font-black text-left">Productised</h1>
         <Badge
           variant="outline"
           className="border border-primary/10 hidden md:block"
@@ -24,7 +24,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
         <Badge className="hidden md:block" variant="default">
           A newcult.co template
         </Badge>
-        <div className="flex w-full items-center mt-2 justify-center md:justify-start">
+        {/* <div className="flex w-full items-center mt-2 justify-center md:justify-start">
           <NextIcon className="hidden md:block size-4" />
           <span className="mx-2 text-xl font-bold text-left">
             Next.js Supabase Directory
@@ -36,9 +36,9 @@ export function Hero({ children }: { children?: React.ReactNode }) {
           grow &gt; <span className="text-yellow-200/40">$</span>
           <span className="text-yellow-200/60">$</span>
           <span className="text-yellow-300/80">$</span>
-        </p>
+        </p> */}
       </div>
-      <div className="flex mt-4 mb-4 space-x-4">
+      {/* <div className="flex mt-4 mb-4 space-x-4">
         <Button variant="secondary" asChild>
           <Link href="/submit" className="flex items-center text-black">
             <PlusIcon className="size-4 mr-1" /> Submit tool
@@ -53,7 +53,7 @@ export function Hero({ children }: { children?: React.ReactNode }) {
           <Twitter className="size-4 mr-1" />
           updates
         </a>
-      </div>
+      </div> */}
       {children}
     </div>
   )

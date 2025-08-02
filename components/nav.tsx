@@ -275,13 +275,12 @@ function ProductNav({
                 href={`/products?category=${category}`}
                 onClick={handleLinkClick}
                 className={cn(
-                  "flex items-start space-x-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 rounded-md px-2 py-0.5",
-                  "shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]",
-                  "dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]",
-                  "dark:hover:shadow-[0_0_0_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.4),0_1px_2px_rgba(0,0,0,0.5)]",
-                  searchParams.get("category") === category
-                    ? "bg-yellow-400 text-black dark:text-black"
-                    : ""
+                  "flex items-start text-sm font-medium rounded-md px-2 py-0.5",
+                  "text-neutral-800 dark:text-neutral-200",
+                  "bg-white dark:bg-neutral-900 border border-border",
+                  "hover:bg-yellow-100 dark:hover:bg-neutral-800",
+                  searchParams.get("category") === category &&
+                    "bg-yellow-400 text-black dark:text-neutral-900"
                 )}
                 prefetch={false}
               >
@@ -306,13 +305,12 @@ function ProductNav({
                 href={`/products?tag=${tag}`}
                 onClick={handleLinkClick}
                 className={cn(
-                  "flex items-start space-x-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 rounded-md px-2 py-0.5",
-                  "shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]",
-                  "dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]",
-                  "dark:hover:shadow-[0_0_0_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.4),0_1px_2px_rgba(0,0,0,0.5)]",
-                  searchParams.get("tag") === tag
-                    ? "bg-pink-400 text-black dark:text-black"
-                    : ""
+                  "flex items-start text-sm font-medium rounded-md px-2 py-0.5",
+                  "text-neutral-800 dark:text-neutral-200",
+                  "bg-white dark:bg-neutral-900 border border-border",
+                  "hover:bg-pink-100 dark:hover:bg-neutral-800",
+                  searchParams.get("tag") === tag &&
+                    "bg-pink-400 text-black dark:text-neutral-900"
                 )}
                 prefetch={false}
               >
@@ -337,13 +335,12 @@ function ProductNav({
                 href={`/products?label=${label}`}
                 onClick={handleLinkClick}
                 className={cn(
-                  "flex items-start space-x-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 rounded-md px-2 py-0.5",
-                  "shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]",
-                  "dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]",
-                  "dark:hover:shadow-[0_0_0_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.4),0_1px_2px_rgba(0,0,0,0.5)]",
-                  searchParams.get("label") === label
-                    ? "bg-cyan-400 text-black dark:text-black"
-                    : ""
+                  "flex items-start text-sm font-medium rounded-md px-2 py-0.5",
+                  "text-neutral-800 dark:text-neutral-200",
+                  "bg-white dark:bg-neutral-900 border border-border",
+                  "hover:bg-cyan-100 dark:hover:bg-neutral-800",
+                  searchParams.get("label") === label &&
+                    "bg-cyan-400 text-black dark:text-neutral-900"
                 )}
                 prefetch={false}
               >

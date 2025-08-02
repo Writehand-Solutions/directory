@@ -15,6 +15,7 @@ import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
 import Footer from "@/components/footer"
 import Navbar from "@/components/navbar"
+import { FilterDataSection } from "@/components/filter-data-section"
 
 export const dynamic = "force-dynamic"
 
@@ -46,6 +47,7 @@ async function Page({ searchParams }: { searchParams: { search?: string } }) {
               <div className="col-span-1 md:col-span-2 z-10">
                 <Hero>
                   <DirectorySearch />
+                  <FilterDataSection/>
                 </Hero>
               </div>
 
