@@ -26,9 +26,9 @@ export const industriesEnum = [
 
 const prepareContent = (content: string) => {
   // Remove extra spaces
-  let cleanedContent = content.replace(/\s\s+/g, " ").trim()
+  const cleanedContent = content.replace(/\s\s+/g, " ").trim()
   // Optionally, split into sentences or sections if needed
-  let sentences = cleanedContent
+  const sentences = cleanedContent
     .split(". ")
     .map((sentence) => sentence.trim() + ".")
   return sentences.join(" ")
