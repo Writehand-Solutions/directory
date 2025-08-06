@@ -19,16 +19,15 @@ export const getBasePath = (url: string) => {
   return new URL(url).hostname.replace("www.", "").split(".")[0]
 }
 
+// (You can leave getLastPathSegment in place for future use or remove it entirely)
 export const getLastPathSegment = (url: string, maxLength: number): string => {
   try {
     const pathname = new URL(url).pathname
     const segments = pathname.split("/").filter(Boolean)
     const lastSegment = segments.pop() || ""
-
     if (lastSegment.length > maxLength) {
       return `/${lastSegment.substring(0, maxLength)}`
     }
-
     return lastSegment ? `/${lastSegment}` : ""
   } catch (error) {
     console.error("Invalid URL:", error)
@@ -75,7 +74,6 @@ export const ProductLink: React.FC<{
   }
 
   const url = isFeatured ? `"https://newcult.co"` : `/products/${data.id}`
-  console.log("url", url)
 
   return (
     <motion.div
@@ -83,20 +81,11 @@ export const ProductLink: React.FC<{
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative  break-inside-avoid w-full"
+      className="group relative break-inside-avoid w-full"
     >
-      <div className="w-full">
-        <Link
-          href={url || `/products/${data.id}`}
-          key={`/products/${data.id}`}
-          onClick={handleClick}
-        >
-          <ResourceCard
-            data={data}
-            view_count={optimisticResource.view_count}
-          />
-        </Link>
-      </div>
+      <Link href={url} onClick={handleClick}>
+        <ResourceCard data={data} view_count={optimisticResource.view_count} />
+      </Link>
     </motion.div>
   )
 }
@@ -112,17 +101,11 @@ export const FeaturedExternalLink: React.FC<{
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative  break-inside-avoid w-full"
+      className="group relative break-inside-avoid w-full"
     >
-      <div className="w-full">
-        <a
-          href={data.product_website}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <ResourceCard data={data} view_count={0} trim={true} />
-        </a>
-      </div>
+      <a href={data.product_website} target="_blank" rel="noreferrer noopener">
+        <ResourceCard data={data} view_count={0} trim={true} />
+      </a>
     </motion.div>
   )
 }
@@ -145,13 +128,9 @@ function ResourceCard({
       <MinimalCardTitle className="font-semibold mb-0.5">
         {data.codename.substring(0, 30)}
       </MinimalCardTitle>
-      <motion.p
-        initial={{ opacity: 0, y: 5 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-xs leading-3 mb-2 text-neutral-500"
-      >
-        {getLastPathSegment(data.product_website, 10)}
-      </motion.p>
+
+      {/* Removed the slug line here */}
+
       <MinimalCardDescription className="text-sm">
         {trim ? `${data.description.slice(0, 82)}...` : data.description}
       </MinimalCardDescription>
@@ -160,15 +139,15 @@ function ResourceCard({
       <MinimalCardFooter>
         <div
           className={cn(
-            "p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1  absolute bottom-2 left-2 rounded-br-[16px]",
-            view_count > 1 ? "  block" : "hidden"
+            "p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1 absolute bottom-2 left-2 rounded-br-[16px]",
+            view_count > 1 ? "block" : "hidden"
           )}
         >
           <p className="flex items-center gap-1 tracking-tight text-neutral pr-1 text-xs">
             {view_count || data.view_count}
           </p>
         </div>
-        <div className="p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1  absolute bottom-2 right-2 rounded-br-[16px]">
+        <div className="p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1 absolute bottom-2 right-2 rounded-br-[16px]">
           <Tag className="h-4 w-4 ml-[1px]" />
           <p className="flex items-center gap-1 tracking-tight text-neutral pr-1 text-xs">
             {data.labels[0]}
