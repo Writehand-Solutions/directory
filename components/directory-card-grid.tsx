@@ -136,31 +136,31 @@ export const FeaturedGrid: React.FC<{ featuredData: Product[] }> = ({
 export const EmptyFeaturedGrid = () => {
   const emptyData = [
     {
-      codename: "Join the cult",
+      codename: "Join the AI Productisation Academy",
       punchline: "Next.j, Supabase & Tailwind Starters",
-      product_website: "https://newcult.co",
+      product_website: "https://www.skool.com/productised-8535/about",
       description:
-        "Check out newcult.co for the premium version of this template",
+        "Join our free community and gain access to:",
       logo_src: "/ad-placeholder-metrics.png",
       tags: ["featured"],
       labels: ["featured-ad"],
     },
     {
-      codename: "To get Admin Dashboard",
-      product_website: "https://newcult.co",
+      codename: "Prompt Builder & Library",
+      product_website: "https://productised.ai/prompt-builder",
       punchline: "Next.j, Supabase & Tailwind Starters",
       description:
-        "Join the cult and get access to the admin dashboard for this template.",
+        "Free access to our Prompt Builder & Library...",
       logo_src: "/ad-placeholder-1.png",
       tags: ["featured"],
       labels: ["featured-ad"],
     },
     {
-      codename: "And AI scripts",
-      product_website: "https://newcult.co",
+      codename: "AI Book and Asset Builder",
+      product_website: "https://productised.ai/book-builder",
       punchline: "Next.j, Supabase & Tailwind Starters",
       description:
-        "Includes AI scripts to quickly add new products to your directory..",
+        "Free access to our Book & Asset Builder...",
       logo_src: "/ad-placeholder-tags.png",
       tags: ["featured"],
       labels: ["featured-ad"],
