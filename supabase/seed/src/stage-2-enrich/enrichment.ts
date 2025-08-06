@@ -1,3 +1,5 @@
+// supabase/seed/src/stage-2-enrich/enrichment.ts
+
 import path from "path"
 import dotenv from "dotenv"
 import pRetry from "p-retry"
@@ -5,13 +7,11 @@ import pThrottle from "p-throttle"
 
 import { AIClientConfig, AIModel, createAIClient } from "./ai-client"
 import {
-  allowedLabels,
-  fixLabelsTagsPrompt,
+  getSimpleDetailsPrompt,
+  getSimpleCategoryIndustryPrompt,
   getAIEnrichmentPrompt,
   getFixPrompt,
-  getSimpleDetailsPrompt,
-  getSimpleTagsLabelsCategoriesPrompt,
-  tagsEnum,
+  fixCategoryIndustryPrompt,
 } from "./prompt"
 import {
   EnrichedDataItem,
@@ -20,7 +20,6 @@ import {
   filtersSchema,
   filtersSchemaWithFixedLabelsSchema,
   strictSchema,
-  validateLabelsFiltersSchema,
 } from "./schemas"
 
 dotenv.config({ path: path.resolve(__dirname, "../../../../.env.local") })
@@ -50,27 +49,26 @@ const smartModelConfig: AIClientConfig = {
 
 const cheapFastModel = createAIClient(cheapFastModelConfig)
 const smarterModel = createAIClient(smartModelConfig)
-
-// Used if cheap model fails
 const fallbackSmarterModel = createAIClient(smartModelConfig)
 
-// Utility function to clean content and split it into sentences
 const cleanAndJoinContent = (content: string): string => {
-  const cleanedContent = content.replace(/\s\s+/g, " ").trim()
-  const sentences = cleanedContent
-    .split(". ")
-    .map((sentence) => sentence.trim() + ".")
+  const cleaned = content.replace(/\s\s+/g, " ").trim()
+  const sentences = cleaned.split(". ").map(s => s.trim() + ".")
   return sentences.join(" ")
 }
 
-// Function to perform enrichment using a given AI model
+// Single‐step full enrichment (used as fallback)
 const enrichItem = async (
   client: ReturnType<typeof createAIClient>,
   item: RawDataItem
 ): Promise<EnrichedDataItem> => {
   const result = await client.generate(
     strictSchema,
-    getAIEnrichmentPrompt(item.codename, item.description, item.site_content)
+    getAIEnrichmentPrompt(
+      item.codename,
+      item.description,
+      item.site_content
+    )
   )
 
   return {
@@ -78,30 +76,27 @@ const enrichItem = async (
     codename: result.object.codename,
     punchline: result.object.punchline,
     description: result.object.description,
-    tags: result.object.tags,
-    labels: result.object.labels,
-    categories: result.object.category,
+    category: result.object.category,
+    industry: result.object.industry,
   }
 }
 
-// Main enrichment function with throttling and retry mechanism
 export const enrichData = (throttleLimit = 7, retryAttempts = 3) => {
-  const throttle = pThrottle({ limit: throttleLimit, interval: 10000 }) // throttle 10 seconds every 7 requests
+  const throttle = pThrottle({ limit: throttleLimit, interval: 10000 })
 
-  // Function to enrich a single item with retry logic
   return throttle(async (item: RawDataItem): Promise<EnrichedDataItem> => {
     return pRetry(
-      async (attempt) => {
+      async attempt => {
         console.log(
-          `Enriching item with ID: ${item.codename}, attempt: ${attempt}`
+          `Enriching item ${item.codename}, attempt #${attempt}`
         )
 
         if (attempt === 1) {
-          return await enrichItemWithSeparateRequests(item)
+          return enrichItemWithSeparateRequests(item)
         } else if (attempt === 2) {
-          return await enrichItemWithFixPrompt(fallbackSmarterModel, item)
+          return enrichItemWithFixPrompt(fallbackSmarterModel, item)
         } else {
-          return await enrichItemWithFallbackModel(fallbackSmarterModel, item)
+          return enrichItem(fallbackSmarterModel, item)
         }
       },
       { retries: retryAttempts }
@@ -109,12 +104,11 @@ export const enrichData = (throttleLimit = 7, retryAttempts = 3) => {
   })
 }
 
-// Function to enrich an item using separate requests for details and filters
 const enrichItemWithSeparateRequests = async (
   item: RawDataItem
 ): Promise<EnrichedDataItem> => {
   try {
-    const [detailsOutput, filtersOutput] = await Promise.all([
+    const [detailsOutput, ciOutput] = await Promise.all([
       cheapFastModel.generate(
         definitionSchema,
         getSimpleDetailsPrompt(
@@ -125,133 +119,76 @@ const enrichItemWithSeparateRequests = async (
       ),
       cheapFastModel.generate(
         filtersSchema,
-        getSimpleTagsLabelsCategoriesPrompt(
+        getSimpleCategoryIndustryPrompt(
           item.codename,
           item.description,
-          item.site_content
+          cleanAndJoinContent(item.site_content)
         )
       ),
     ])
 
-    // Validate the filters output
-    const validationResult = await validateLabelsFiltersSchema.safeParse({
-      tags: filtersOutput.object.tags,
-      labels: filtersOutput.object.labels,
-    })
+    let { category, industry } = ciOutput.object
 
-    // Initialize fixed labels and tags
-    let fixedLabelsTags = {
-      tags: filtersOutput.object.tags,
-      labels: filtersOutput.object.labels,
-    }
-
-    // If validation fails, fix labels and tags
-    if (!validationResult.success) {
-      console.log("______________RUN 1 PASS - FIX LABELS TAGS_____________")
-      const fixedLabelsTagsOutput = await smarterModel.generate(
+    // If category or industry missing, run a fix prompt
+    if (!category || !industry) {
+      console.log("→ Missing category/industry; running fix prompt")
+      const fixed = await smarterModel.generate(
         filtersSchemaWithFixedLabelsSchema,
-        fixLabelsTagsPrompt(
-          filtersOutput.object.tags,
-          filtersOutput.object.labels
-        )
+        fixCategoryIndustryPrompt(ciOutput.object)
       )
-      fixedLabelsTags = fixedLabelsTagsOutput.object
-      smartModelCalls += 1 // Increment the sonnet model call count by 1
+      category = fixed.object.category
+      industry = fixed.object.industry
+      smartModelCalls += 1
     }
 
-    // Ensure fixed labels and tags are not undefined
-    if (!fixedLabelsTags || !fixedLabelsTags.tags || !fixedLabelsTags.labels) {
-      throw new Error("Fixed labels or tags are undefined")
-    }
-
-    // Combine details and fixed labels/tags into a single output
-    const combinedOutput = {
-      codename: detailsOutput.object.codename,
-      punchline: detailsOutput.object.punchline,
-      description: detailsOutput.object.description,
-      tags: fixedLabelsTags.tags
-        .filter((tag: string) =>
-          (tagsEnum as ReadonlyArray<string>).includes(tag)
-        )
-        .slice(0, 4),
-      labels: fixedLabelsTags.labels
-        .filter((label: string) =>
-          (allowedLabels as ReadonlyArray<string>).includes(label)
-        )
-        .slice(0, 3),
-      category: filtersOutput.object.category || "undefined", // Ensure category is not undefined
-    }
-
-    // Validate the combined output
-    const strictValidation = await strictSchema.safeParse(combinedOutput)
-
-    if (!strictValidation.success) {
-      console.log(
-        "______________RUN 1 COMBINED OUTPUT FAIL_____________",
-        combinedOutput
-      )
+    // Validate that we have both values
+    if (!category || !industry) {
       throw new Error(
-        `Failed to validate attempt 1 output for ${
-          item.codename
-        }: ${JSON.stringify(strictValidation.error.errors, null, 2)}`
+        `Invalid category/industry after fix for ${item.codename}`
       )
     }
 
-    cheapFastModelCalls += 2 // Increment the haiku model call count by 2
-
-    console.log("______________ RUN 1 PASS_____________")
+    cheapFastModelCalls += 2
+    console.log("→ Enrichment step passed")
 
     return {
       ...item,
-      ...combinedOutput,
-      categories: combinedOutput.category,
+      codename: detailsOutput.object.codename,
+      punchline: detailsOutput.object.punchline,
+      description: detailsOutput.object.description,
+      category,
+      industry,
     }
-  } catch (error) {
-    console.error(`Failed attempt 1 for ${item.codename}:`, error)
-    throw error
+  } catch (err) {
+    console.error(`Separate-requests enrichment failed for ${item.codename}`, err)
+    throw err
   }
 }
 
-// Function to enrich an item using a fix prompt
 const enrichItemWithFixPrompt = async (
   client: ReturnType<typeof createAIClient>,
   item: RawDataItem
 ): Promise<EnrichedDataItem> => {
   try {
-    // Generate a fix prompt for the AI model
     const fixPrompt = getFixPrompt(
       item.codename,
       item.description,
       item.site_content,
       {}
     )
-
-    // Generate the result using the AI model
     const result = await client.generate(strictSchema, fixPrompt)
-    cheapFastModelCalls += 1 // Increment the sonnet model call count by 1
+    cheapFastModelCalls += 1
 
     return {
       ...item,
       codename: result.object.codename,
       punchline: result.object.punchline,
       description: result.object.description,
-      tags: result.object.tags,
-      labels: result.object.labels,
-      categories: result.object.category,
+      category: result.object.category,
+      industry: result.object.industry,
     }
-  } catch (error) {
-    console.error(`Failed attempt 2 for ${item.codename}:`, error)
-    throw error
+  } catch (err) {
+    console.error(`Fix-prompt enrichment failed for ${item.codename}`, err)
+    throw err
   }
-}
-
-// Function to enrich an item using a fallback model
-const enrichItemWithFallbackModel = async (
-  client: ReturnType<typeof createAIClient>,
-  item: RawDataItem
-): Promise<EnrichedDataItem> => {
-  // Perform enrichment using the main function as a fallback
-  const enrichedItem = await enrichItem(client, item)
-  smartModelCalls += 1 // Increment the sonnet model call count by 1
-  return enrichedItem
 }
