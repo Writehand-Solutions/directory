@@ -1,22 +1,12 @@
 // schemas.ts
 import { z } from "zod"
 
-import { categoriesEnum, labelsEnum, tagsEnum } from "./prompt"
+import { categoriesEnum, industriesEnum } from "./prompt"
 
 // Define Zod schemas for validation
 export const strictSchema = z.object({
   category: z.enum(categoriesEnum),
-  tags: z.array(z.enum(tagsEnum)).max(4),
-  labels: z
-    .array(
-      z.enum([
-        ...labelsEnum.dev,
-        ...labelsEnum.design,
-        ...labelsEnum.learning,
-        ...labelsEnum.media,
-      ])
-    )
-    .max(3),
+  industry: z.enum(industriesEnum),
   codename: z.string(),
   punchline: z.string(),
   description: z.string(),
@@ -30,27 +20,12 @@ export const definitionSchema = z.object({
 
 export const filtersSchema = z.object({
   category: z.enum(categoriesEnum),
-  tags: z.array(z.string()), // Accept any string values for tags
-  labels: z.array(z.string()), // Accept any string values for labels
+  industry: z.enum(industriesEnum),
 })
 
-export const filtersSchemaWithFixedLabelsSchema = z.object({
-  tags: z.array(z.string()), // Accept any string values for tags
-  labels: z.array(z.string()), // Accept any string values for labels
-})
-
-export const validateLabelsFiltersSchema = z.object({
-  tags: z.array(z.enum(tagsEnum)).max(4),
-  labels: z
-    .array(
-      z.enum([
-        ...labelsEnum.dev,
-        ...labelsEnum.design,
-        ...labelsEnum.learning,
-        ...labelsEnum.media,
-      ])
-    )
-    .max(3),
+export const filtersSchemaWithFixedCI = z.object({
+  category: z.enum(categoriesEnum),
+  industry: z.enum(industriesEnum),
 })
 
 // Interfaces for raw and enriched data items
@@ -65,11 +40,10 @@ export interface RawDataItem {
 }
 
 export interface EnrichedDataItem extends RawDataItem {
-  tags: string[]
-  labels: string[]
-  categories: string
+  category: string
+  industry: string
 }
 
 export type DefinitionSchema = z.infer<typeof definitionSchema>
-
 export type FiltersSchema = z.infer<typeof filtersSchema>
+
