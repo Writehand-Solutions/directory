@@ -1,16 +1,36 @@
 'use client'
-import { cn, truncateString } from '@/lib/utils'
-import { BoxIcon, Tag } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
 
-// Import your enums directly
-import { categoriesEnum, industriesEnum } from '@/prompts'
+import { cn, truncateString } from "@/lib/utils"
+import { BoxIcon, Tag } from "lucide-react"
+import { useSearchParams } from "next/navigation"
+import Link from "next/link"
+
+// --- Paste your enums here ---
+const categories = [
+  "lead generation",
+  "content creation",
+  "customer engagement",
+] as const
+
+const industries = [
+  "marketing",
+  "e-commerce",
+  "SaaS",
+  "human resources",
+  "finance",
+  "healthcare",
+  "education",
+  "real estate",
+  "travel",
+  "retail",
+  "legal",
+  "manufacturing",
+  "non-profit",
+] as const
+// ---------------------------------
 
 export function FilterDataSection() {
   const searchParams = useSearchParams()
-  const categories = categoriesEnum
-  const industries = industriesEnum
 
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-6">
@@ -23,10 +43,10 @@ export function FilterDataSection() {
               <Link
                 href={`/products?category=${encodeURIComponent(category)}`}
                 className={cn(
-                  'flex items-center text-sm font-medium rounded-md px-2 py-0.5',
-                  searchParams.get('category') === category
-                    ? 'bg-yellow-400 text-black'
-                    : 'bg-white'
+                  "flex items-center text-sm font-medium rounded-md px-2 py-0.5",
+                  searchParams.get("category") === category
+                    ? "bg-yellow-400 text-black"
+                    : "bg-white"
                 )}
               >
                 {truncateString(category, 12)}
@@ -45,10 +65,10 @@ export function FilterDataSection() {
               <Link
                 href={`/products?industry=${encodeURIComponent(industry)}`}
                 className={cn(
-                  'flex items-center text-sm font-medium rounded-md px-2 py-0.5',
-                  searchParams.get('industry') === industry
-                    ? 'bg-pink-400 text-black'
-                    : 'bg-white'
+                  "flex items-center text-sm font-medium rounded-md px-2 py-0.5",
+                  searchParams.get("industry") === industry
+                    ? "bg-pink-400 text-black"
+                    : "bg-white"
                 )}
               >
                 {truncateString(industry, 12)}
