@@ -5,7 +5,7 @@ import { BoxIcon, Tag } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 
-// --- Paste your enums here ---
+// your enums, pulled in or pasted here
 const categories = [
   "lead generation",
   "content creation",
@@ -27,17 +27,24 @@ const industries = [
   "manufacturing",
   "non-profit",
 ] as const
-// ---------------------------------
 
 export function FilterDataSection() {
   const searchParams = useSearchParams()
 
+  // === chunk into 3 columns ===
+  const cols = 3
+  const chunkSize = Math.ceil(industries.length / cols)
+  const industryColumns = Array.from({ length: cols }, (_, i) =>
+    industries.slice(i * chunkSize, (i + 1) * chunkSize)
+  )
+  // =============================
+
   return (
     <div className="flex flex-col md:flex-row gap-6 mt-6">
-      {/* Categories */}
+      {/* Categories (unchanged) */}
       <div className="flex flex-col items-start gap-2">
         <BoxIcon className="h-4 w-4 text-yellow-500" />
-        <ul className="w-32 flex flex-col gap-2 items-start py-2">
+        <ul className="w-32 flex flex-col gap-2 py-2">
           {categories.map((category) => (
             <li key={category}>
               <Link
@@ -56,26 +63,30 @@ export function FilterDataSection() {
         </ul>
       </div>
 
-      {/* Industries */}
+      {/* Industries split into 3 columns */}
       <div className="flex flex-col items-start gap-2">
         <Tag className="h-4 w-4 text-pink-500" />
-        <ul className="w-32 flex flex-col gap-2 items-start py-2">
-          {industries.map((industry) => (
-            <li key={industry}>
-              <Link
-                href={`/products?industry=${encodeURIComponent(industry)}`}
-                className={cn(
-                  "flex items-center text-sm font-medium rounded-md px-2 py-0.5",
-                  searchParams.get("industry") === industry
-                    ? "bg-pink-400 text-black"
-                    : "bg-white"
-                )}
-              >
-                {truncateString(industry, 12)}
-              </Link>
-            </li>
+        <div className="flex gap-4 py-2">
+          {industryColumns.map((col, colIdx) => (
+            <ul key={colIdx} className="flex flex-col gap-2">
+              {col.map((industry) => (
+                <li key={industry}>
+                  <Link
+                    href={`/products?industry=${encodeURIComponent(industry)}`}
+                    className={cn(
+                      "flex items-center text-sm font-medium rounded-md px-2 py-0.5",
+                      searchParams.get("industry") === industry
+                        ? "bg-pink-400 text-black"
+                        : "bg-white"
+                    )}
+                  >
+                    {truncateString(industry, 12)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   )
