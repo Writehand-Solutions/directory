@@ -140,10 +140,10 @@ export const EmptyFeaturedGrid = () => {
       punchline: "Next.j, Supabase & Tailwind Starters",
       product_website: "https://www.skool.com/productised-8535/about",
       description:
-        "Join our free community...",
+        "Join our free community and get access to bonuses, including...",
       logo_src: "/ad-placeholder-metrics.png",
       tags: ["featured"],
-      labels: ["featured-ad"],
+      labels: ["Community"],
     },
     {
       codename: "Prompt Builder & Library",
@@ -153,7 +153,7 @@ export const EmptyFeaturedGrid = () => {
         "Free access to our Prompt Builder & Library...",
       logo_src: "/ad-placeholder-1.png",
       tags: ["featured"],
-      labels: ["featured-ad"],
+      labels: ["Prompt Builder"],
     },
     {
       codename: "AI Book and Asset Builder",
@@ -163,7 +163,7 @@ export const EmptyFeaturedGrid = () => {
         "Free access to our Book & Asset Builder...",
       logo_src: "/ad-placeholder-tags.png",
       tags: ["featured"],
-      labels: ["featured-ad"],
+      labels: ["Book Builder"],
     },
   ]
 
