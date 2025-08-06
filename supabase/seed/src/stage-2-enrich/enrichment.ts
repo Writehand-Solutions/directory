@@ -67,14 +67,14 @@ const enrichItem = async (
     getAIEnrichmentPrompt(item.codename, item.description, item.site_content)
   )
 
-  return {
+  return ({
     ...item,
     codename: result.object.codename,
     punchline: result.object.punchline,
     description: result.object.description,
     categories: result.object.category,
     industry: result.object.industry,
-  }
+  } as any)
 }
 
 export const enrichData = (throttleLimit = 7, retryAttempts = 3) => {
@@ -142,14 +142,14 @@ const enrichItemWithSeparateRequests = async (
     cheapFastModelCalls += 2
     console.log("→ Enrichment step passed")
 
-    return {
+    return ({
       ...item,
       codename: detailsOutput.object.codename,
       punchline: detailsOutput.object.punchline,
       description: detailsOutput.object.description,
       categories: category,
       industry,
-    }
+    } as any)
   } catch (err) {
     console.error(
       `Separate-requests enrichment failed for ${item.codename}`,
@@ -173,14 +173,14 @@ const enrichItemWithFixPrompt = async (
     const result = await client.generate(strictSchema, fixPrompt)
     cheapFastModelCalls += 1
 
-    return {
+    return ({
       ...item,
       codename: result.object.codename,
       punchline: result.object.punchline,
       description: result.object.description,
       categories: result.object.category,
       industry: result.object.industry,
-    }
+    } as any)
   } catch (err) {
     console.error(`Fix-prompt enrichment failed for ${item.codename}`, err)
     throw err
