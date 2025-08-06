@@ -18,7 +18,7 @@ import {
   RawDataItem,
   definitionSchema,
   filtersSchema,
-  filtersSchemaWithFixedLabelsSchema,
+  filtersSchemaWithFixedCI,
   strictSchema,
 } from "./schemas"
 
@@ -34,29 +34,29 @@ const openaiApiKey = process.env.OPENAI_API_KEY?.trim()
 const cheapFastModelConfig: AIClientConfig = {
   provider: anthropicApiKey ? "anthropic" : "openai",
   model: anthropicApiKey
-    ? (AIModel.CLAUDE_3_HAIKU)
-    : (AIModel.GPT_3_5_TURBO),
+    ? AIModel.CLAUDE_3_HAIKU
+    : AIModel.GPT_3_5_TURBO,
   apiKey: anthropicApiKey || openaiApiKey!,
 }
 
 const smartModelConfig: AIClientConfig = {
   provider: anthropicApiKey ? "anthropic" : "openai",
   model: anthropicApiKey
-    ? (AIModel.CLAUDE_3_SONNET)
-    : (AIModel.GPT_4_TURBO),
+    ? AIModel.CLAUDE_3_SONNET
+    : AIModel.GPT_4_TURBO,
   apiKey: anthropicApiKey || openaiApiKey!,
 }
 
 const cheapFastModel = createAIClient(cheapFastModelConfig)
-const smarterModel   = createAIClient(smartModelConfig)
-const fallbackModel  = createAIClient(smartModelConfig)
+const smarterModel = createAIClient(smartModelConfig)
+const fallbackModel = createAIClient(smartModelConfig)
 
 const cleanAndJoin = (content: string) =>
   content
     .replace(/\s\s+/g, " ")
     .trim()
     .split(". ")
-    .map(s => s.trim() + ".")
+    .map((s) => s.trim() + ".")
     .join(" ")
 
 // Fallback: full enrichment in one go
@@ -71,11 +71,11 @@ async function enrichFallback(
 
   return {
     ...item,
-    codename:    res.object.codename,
-    punchline:   res.object.punchline,
+    codename: res.object.codename,
+    punchline: res.object.punchline,
     description: res.object.description,
-    category:    res.object.category,
-    industry:    res.object.industry,
+    category: res.object.category,
+    industry: res.object.industry,
   }
 }
 
@@ -86,17 +86,14 @@ export const enrichData = (
   pThrottle({ limit: throttleLimit, interval: 10000 })(
     async (item: RawDataItem): Promise<EnrichedDataItem> =>
       pRetry(
-        async attempt => {
+        async (attempt) => {
           console.log(`Item ${item.codename} – attempt #${attempt}`)
 
           if (attempt === 1) {
-            // 1. Details + Category/Industry in two parallel calls
             return enrichTwoStep(item)
           } else if (attempt === 2) {
-            // 2. Try with a fix prompt if CI missing
             return enrichWithFixPrompt(item)
           } else {
-            // 3. Full fallback
             return enrichFallback(fallbackModel, item)
           }
         },
@@ -104,8 +101,9 @@ export const enrichData = (
       )
   )
 
-async function enrichTwoStep(item: RawDataItem): Promise<EnrichedDataItem> {
-  // Parallel: details + (category,industry)
+async function enrichTwoStep(
+  item: RawDataItem
+): Promise<EnrichedDataItem> {
   const [details, ci] = await Promise.all([
     cheapFastModel.generate(
       definitionSchema,
@@ -127,15 +125,14 @@ async function enrichTwoStep(item: RawDataItem): Promise<EnrichedDataItem> {
 
   let { category, industry } = ci.object
 
-  // If missing, run fix
   if (!category || !industry) {
     console.log("→ CI missing, running fix")
     const fixed = await smarterModel.generate(
-      filtersSchemaWithFixedLabelsSchema,
+      filtersSchemaWithFixedCI,
       fixCategoryIndustryPrompt(ci.object)
     )
-    category  = fixed.object.category
-    industry  = fixed.object.industry
+    category = fixed.object.category
+    industry = fixed.object.industry
     smartModelCalls += 1
   }
 
@@ -147,8 +144,8 @@ async function enrichTwoStep(item: RawDataItem): Promise<EnrichedDataItem> {
 
   return {
     ...item,
-    codename:    details.object.codename,
-    punchline:   details.object.punchline,
+    codename: details.object.codename,
+    punchline: details.object.punchline,
     description: details.object.description,
     category,
     industry,
@@ -161,17 +158,17 @@ async function enrichWithFixPrompt(item: RawDataItem) {
     item.codename,
     item.description,
     item.site_content,
-    {} // you can pass prior failedResponse here
+    {}
   )
   const res = await smarterModel.generate(strictSchema, prompt)
   cheapFastModelCalls += 1
 
   return {
     ...item,
-    codename:    res.object.codename,
-    punchline:   res.object.punchline,
+    codename: res.object.codename,
+    punchline: res.object.punchline,
     description: res.object.description,
-    category:    res.object.category,
-    industry:    res.object.industry,
+    category: res.object.category,
+    industry: res.object.industry,
   }
 }
