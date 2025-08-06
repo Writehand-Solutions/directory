@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 import pRetry from "p-retry"
 import pThrottle from "p-throttle"
 
-import { AIClientConfig, AIModel, createAIClient } from "./ai-client"
+import { AIClientConfig, createAIClient } from "./ai-client"
 import {
   getSimpleDetailsPrompt,
   getSimpleCategoryIndustryPrompt,
@@ -31,19 +31,21 @@ export let smartModelCalls = 0
 const anthropicApiKey = process.env.ANTHROPIC_API_KEY?.trim()
 const openaiApiKey = process.env.OPENAI_API_KEY?.trim()
 
+// Config for faster smaller model
 const cheapFastModelConfig: AIClientConfig = {
   provider: anthropicApiKey ? "anthropic" : "openai",
   model: anthropicApiKey
-    ? AIModel.CLAUDE_3_HAIKU
-    : AIModel.GPT_3_5_TURBO,
+    ? ("claude-3-haiku-20240307" as any)
+    : ("gpt-3.5-turbo" as any),
   apiKey: anthropicApiKey || openaiApiKey!,
 }
 
+// Config for smarter model
 const smartModelConfig: AIClientConfig = {
   provider: anthropicApiKey ? "anthropic" : "openai",
   model: anthropicApiKey
-    ? AIModel.CLAUDE_3_SONNET
-    : AIModel.GPT_4_TURBO,
+    ? ("claude-3-sonnet-20240229" as any)
+    : ("gpt-4-turbo" as any),
   apiKey: anthropicApiKey || openaiApiKey!,
 }
 
