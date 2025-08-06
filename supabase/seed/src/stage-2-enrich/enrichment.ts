@@ -64,11 +64,7 @@ const enrichItem = async (
 ): Promise<EnrichedDataItem> => {
   const result = await client.generate(
     strictSchema,
-    getAIEnrichmentPrompt(
-      item.codename,
-      item.description,
-      item.site_content
-    )
+    getAIEnrichmentPrompt(item.codename, item.description, item.site_content)
   )
 
   return {
@@ -76,7 +72,7 @@ const enrichItem = async (
     codename: result.object.codename,
     punchline: result.object.punchline,
     description: result.object.description,
-    category: result.object.category,
+    categories: result.object.category,
     industry: result.object.industry,
   }
 }
@@ -87,9 +83,7 @@ export const enrichData = (throttleLimit = 7, retryAttempts = 3) => {
   return throttle(async (item: RawDataItem): Promise<EnrichedDataItem> => {
     return pRetry(
       async attempt => {
-        console.log(
-          `Enriching item ${item.codename}, attempt #${attempt}`
-        )
+        console.log(`Enriching item ${item.codename}, attempt #${attempt}`)
 
         if (attempt === 1) {
           return enrichItemWithSeparateRequests(item)
@@ -141,11 +135,8 @@ const enrichItemWithSeparateRequests = async (
       smartModelCalls += 1
     }
 
-    // Validate that we have both values
     if (!category || !industry) {
-      throw new Error(
-        `Invalid category/industry after fix for ${item.codename}`
-      )
+      throw new Error(`Invalid category/industry for ${item.codename}`)
     }
 
     cheapFastModelCalls += 2
@@ -156,11 +147,14 @@ const enrichItemWithSeparateRequests = async (
       codename: detailsOutput.object.codename,
       punchline: detailsOutput.object.punchline,
       description: detailsOutput.object.description,
-      category,
+      categories: category,
       industry,
     }
   } catch (err) {
-    console.error(`Separate-requests enrichment failed for ${item.codename}`, err)
+    console.error(
+      `Separate-requests enrichment failed for ${item.codename}`,
+      err
+    )
     throw err
   }
 }
@@ -184,7 +178,7 @@ const enrichItemWithFixPrompt = async (
       codename: result.object.codename,
       punchline: result.object.punchline,
       description: result.object.description,
-      category: result.object.category,
+      categories: result.object.category,
       industry: result.object.industry,
     }
   } catch (err) {
