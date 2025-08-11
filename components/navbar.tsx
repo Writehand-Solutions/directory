@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Logo } from '@/full logo.svg'
+import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import {
