@@ -136,11 +136,11 @@ export const FeaturedGrid: React.FC<{ featuredData: Product[] }> = ({
 export const EmptyFeaturedGrid = () => {
   const emptyData = [
     {
-      codename: "Join our community",
+      codename: "Join Our Community",
       punchline: "Next.j, Supabase & Tailwind Starters",
       product_website: "https://www.skool.com/productised-8535/about",
       description:
-        "Join our free community...",
+        "Join our free community for modern...",
       logo_src: "/Comm2.png",
       tags: ["featured"],
       labels: ["Community"],
