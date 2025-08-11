@@ -126,7 +126,7 @@ export default function Navbar() {
             <div className="flex w-full items-center justify-between gap-8 lg:w-auto">
               <Link href="/" aria-label="home" className="flex items-center gap-2">
                 {/* ensure your asset path exists; avoid spaces in filenames */}
-                <Image src="/logo.svg" alt="Logo" width={120} height={32} className="h-8 w-auto" />
+                <Image src="/full logo.svg" alt="Logo" width={120} height={32} className="h-8 w-auto" />
               </Link>
 
               <button
