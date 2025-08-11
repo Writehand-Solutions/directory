@@ -141,7 +141,7 @@ export const EmptyFeaturedGrid = () => {
       product_website: "https://www.skool.com/productised-8535/about",
       description:
         "Join our free community for video tutorials and...",
-      logo_src: "/ad-placeholder-metrics.png",
+      logo_src: "/Community.png",
       tags: ["featured"],
       labels: ["Community"],
     },
