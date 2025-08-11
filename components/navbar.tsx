@@ -30,8 +30,8 @@ import {
   Link2,
   Layers,
   Layers2,
-  Columns3Cog,
-  ChartSpline,
+  Columns3,
+  BarChart3,
   Inbox,
   Bolt,
   BookImage,
@@ -101,7 +101,7 @@ const moreFeatures: FeatureLink[] = [
     href: '/roadmap',
     name: 'Analytics',
     description: 'Track AI usage & leads',
-    icon: <ChartSpline className="stroke-foreground fill-orange-500/15" />,
+    icon: <BarChart3 className="stroke-foreground fill-orange-500/15" />,
   },
   {
     href: '/roadmap',
@@ -125,7 +125,7 @@ const moreFeatures: FeatureLink[] = [
     href: '/roadmap',
     name: 'Custom Branding',
     description: 'Add your own branding and domains',
-    icon: <Columns3Cog className="stroke-foreground fill-zinc-500/15" />,
+    icon: <Columns3 className="stroke-foreground fill-zinc-500/15" />,
   },
 ]
 
