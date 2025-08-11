@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import Link from 'next/link'
 import { PollIllustration } from "@/components/poll-illustration"
-import DiagonalPattern from '../diagonal-pattern'
+import DiagonalPattern from '@/components/diagonal-pattern'
 
 const links = [
   {
