@@ -12,6 +12,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuViewport,        // ✅ add this
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import {
@@ -350,6 +351,9 @@ function NavMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
+
+      {/* ✅ render the centered/clamped viewport */}
+      <NavigationMenuViewport />
     </NavigationMenu>
   );
 }
