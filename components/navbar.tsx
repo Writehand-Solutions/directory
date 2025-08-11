@@ -112,7 +112,7 @@ export default function Navbar() {
     <header
       data-state={isMobileMenuOpen ? 'active' : 'inactive'}
       {...(isScrolled && { 'data-scrolled': true })}
-      className="sticky top-0 z-50" // <- stick in normal flow so content sits below
+      className="sticky top-0 z-50"
     >
       <div
         className={cn(
@@ -125,8 +125,8 @@ export default function Navbar() {
             {/* Left: logo + mobile toggle */}
             <div className="flex w-full items-center justify-between gap-8 lg:w-auto">
               <Link href="/" aria-label="home" className="flex items-center gap-2">
-                {/* ensure your asset path exists; avoid spaces in filenames */}
-                <Image src="/full logo.svg" alt="Logo" width={120} height={32} className="h-8 w-auto" />
+                {/* NOTE: avoid spaces in filenames if possible */}
+                <Image src="/full logo.svg" alt="Logo" width={140} height={32} className="h-8 w-auto" />
               </Link>
 
               <button
@@ -218,12 +218,26 @@ const MobileMenu = ({ closeMenu }: { closeMenu: () => void }) => {
 /* -------------------- desktop nav -------------------- */
 function NavMenu() {
   return (
-    <NavigationMenu className="relative z-[60] **:data-[slot=navigation-menu-viewport]:transition-all **:data-[slot=navigation-menu-viewport]:bg-[color-mix(in_oklch,var(--color-muted)_25%,var(--color-background))] **:data-[slot=navigation-menu-viewport]:shadow-lg **:data-[slot=navigation-menu-viewport]:rounded-2xl **:data-[slot=navigation-menu-viewport]:top-4 [--color-muted:color-mix(in_oklch,var(--color-foreground)_5%,transparent)] [--viewport-outer-px:2rem]">
+    <NavigationMenu
+      className="
+        relative z-[60]
+        **:data-[slot=navigation-menu-viewport]:mx-auto
+        **:data-[slot=navigation-menu-viewport]:w-[min(92vw,72rem)]
+        **:data-[slot=navigation-menu-viewport]:left-1/2
+        **:data-[slot=navigation-menu-viewport]:-translate-x-1/2
+        **:data-[slot=navigation-menu-viewport]:transition-all
+        **:data-[slot=navigation-menu-viewport]:bg-[color-mix(in_oklch,var(--color-muted)_25%,var(--color-background))]
+        **:data-[slot=navigation-menu-viewport]:shadow-lg
+        **:data-[slot=navigation-menu-viewport]:rounded-2xl
+        **:data-[slot=navigation-menu-viewport]:top-4
+        [--color-muted:color-mix(in_oklch,var(--color-foreground)_5%,transparent)]
+      "
+    >
       <NavigationMenuList className="gap-3">
         <NavigationMenuItem value="product">
           <NavigationMenuTrigger>Product</NavigationMenuTrigger>
           <NavigationMenuContent className="origin-top pb-1.5 pl-1 pr-4 pt-1">
-            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-3 pr-16">
+            <div className="mx-auto w-[min(92vw,72rem)] grid grid-cols-4 gap-3 px-2 lg:px-4">
               {/* Features */}
               <div className="bg-card row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">Features</span>
@@ -280,7 +294,7 @@ function NavMenu() {
         <NavigationMenuItem value="solutions">
           <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
           <NavigationMenuContent className="origin-top pb-1.5 pl-1 pr-4 pt-1">
-            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-3 pr-16">
+            <div className="mx-auto w-[min(92vw,72rem)] grid grid-cols-4 gap-3 px-2 lg:px-4">
               <div className="bg-card col-span-2 row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">Use Cases</span>
                 <ul className="grid grid-cols-2">
@@ -361,3 +375,4 @@ function ListItem(
     </li>
   );
 }
+
