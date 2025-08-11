@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Logo } from '@/components/logo'
+import { Logo } from '@/full logo.svg'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import {
@@ -201,7 +201,7 @@ export default function HeaderOne() {
             <div className="relative flex flex-wrap items-center justify-between lg:py-5">
               <div className="flex justify-between gap-8 max-lg:h-14 max-lg:w-full max-lg:border-b">
                 <Link href="/" aria-label="home" className="flex items-center space-x-2">
-                  <img src="/images/logo.svg" alt="Logo" className="h-8" />
+                  <img src="/full logo.svg" alt="Logo" className="h-8" />
                 </Link>
 
                 <button
