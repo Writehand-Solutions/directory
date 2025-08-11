@@ -151,7 +151,7 @@ export const EmptyFeaturedGrid = () => {
       punchline: "Next.j, Supabase & Tailwind Starters",
       description:
         "Free access to our Prompt Builder & Library...",
-      logo_src: "/ad-placeholder-1.png",
+      logo_src: "/Promptmaker.png",
       tags: ["featured"],
       labels: ["Prompt Builder"],
     },
@@ -161,7 +161,7 @@ export const EmptyFeaturedGrid = () => {
       punchline: "Next.j, Supabase & Tailwind Starters",
       description:
         "Free access to our Book & Asset Builder...",
-      logo_src: "/ad-placeholder-tags.png",
+      logo_src: "/bookmaker.png",
       tags: ["featured"],
       labels: ["Book Builder"],
     },
