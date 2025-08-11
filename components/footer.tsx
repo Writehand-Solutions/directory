@@ -10,21 +10,21 @@ const links = [
   {
     group: 'Product',
     items: [
-      { title: 'Features', href: '/roadmap' },
-      { title: 'Pricing', href: '/pricing' },
+      { title: 'Features', href: 'https://www.productised.ai/roadmap' },
+      { title: 'Pricing', href: 'https://www.productised.ai/pricing' },
       { title: 'Feature Request', href: 'https://roadmap.productised.ai/t/feedback' },
       { title: 'Knowledgebase', href: 'https://knowledgebase.productised.ai/' },
       { title: 'Roadmap', href: 'https://roadmap.productised.ai/' },
-      { title: 'Enterprise Plan', href: '/enterprise' },
+      { title: 'Enterprise Plan', href: 'https://www.productised.ai/enterprise' },
     ],
   },
   {
     group: 'Resources',
     items: [
       { title: 'Learn', href: 'https://www.skool.com/productised-8535/about' },
-      { title: 'Prompt Builder & Library', href: '/prompt-builder' },
-      { title: 'Book & Asset Builder', href: '/book-builder' },
-      { title: 'Blog', href: '/blog' },
+      { title: 'Prompt Builder & Library', href: 'https://www.productised.ai/prompt-builder' },
+      { title: 'Book & Asset Builder', href: 'https://www.productised.ai/book-builder' },
+      { title: 'Blog', href: 'https://www.productised.ai/blog' },
       { title: 'LinkedIn', href: 'https://www.linkedin.com/company/productised-ai/' },
       { title: 'Youtube', href: 'https://www.youtube.com/@ProductisedAI' },
     ],
@@ -32,12 +32,12 @@ const links = [
   {
     group: 'Company',
     items: [
-      { title: 'About', href: '/about' },
-      { title: 'Learn', href: '/learn' },
+      { title: 'Home', href: 'https://www.productised.ai/' },
+      { title: 'About', href: 'https://www.productised.ai/about' },
       { title: 'Partner Login', href: 'https://productised.partneroapp.com/login' },
       { title: 'Privacy Portal', href: 'https://products.privasee.io/privacy-center/632d95ef5e7d2500133b97d6' },
-      { title: 'Terms', href: '/terms-of-service' },
-      { title: 'Contact', href: '/contact' },
+      { title: 'Terms', href: 'https://www.productised.ai/terms-of-service' },
+      { title: 'Contact', href: 'https://www.productised.ai/contact' },
     ],
   },
 ]
