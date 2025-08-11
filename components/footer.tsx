@@ -94,7 +94,7 @@ export default function FooterSection() {
           <div className="grid gap-12 md:grid-cols-5">
             <div className="space-y-6 md:col-span-2 md:space-y-12">
               <Link href="/" aria-label="go home" className="block w-fit">
-                <img src="/logo.svg" alt="Productised Logo" className="h-8 w-auto" />
+                <img src="/full logo.svg" alt="Productised Logo" className="h-8 w-auto" />
               </Link>
               <p className="text-muted-foreground text-balance text-sm">
                 Not another vibe-coded side project. Productised is built for professionals creating AI products with purpose.
