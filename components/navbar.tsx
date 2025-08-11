@@ -270,7 +270,7 @@ function NavMenu() {
                     <div className="relative -mx-4 h-4/5 px-4 pt-6">
                       <div className="relative z-10 h-full overflow-hidden rounded-t-xl border shadow">
                         <Image
-                          src="/images/Community.png"
+                          src="/Comm2.png"
                           alt="Prompt Creator"
                           fill
                           sizes="(min-width: 1024px) 480px, 60vw"
