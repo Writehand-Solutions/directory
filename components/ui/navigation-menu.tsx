@@ -1,6 +1,3 @@
-Gotcha—here’s the updated file with the viewport centering fix (removed the extra `left-1/2 -translate-x-1/2` so it won’t drift right). You can paste this over `components/ui/navigation-menu.tsx`.
-
-```tsx
 'use client';
 
 import * as React from 'react';
