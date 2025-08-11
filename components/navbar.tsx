@@ -30,8 +30,8 @@ import {
   Link2,
   Layers,
   Layers2,
-  Columns3,   // fixed
-  BarChart3,  // fixed
+  Columns3,
+  BarChart3,
   Inbox,
   Bolt,
   BookImage,
@@ -68,11 +68,11 @@ const appLinks: FeatureLink[] = [
 
 const moreFeatures: FeatureLink[] = [
   { href: '/roadmap', name: 'Prompt Chaining', description: 'Link AI steps for smarter outcomes', icon: <Link2 className="stroke-foreground fill-yellow-500/15" /> },
-  { href: '/roadmap', name: 'Analytics', description: 'Track AI usage & leads', icon: <BarChart3 className="stroke-foreground fill-orange-500/15" /> }, // fixed
+  { href: '/roadmap', name: 'Analytics', description: 'Track AI usage & leads', icon: <BarChart3 className="stroke-foreground fill-orange-500/15" /> },
   { href: '/roadmap', name: 'BYOK', description: 'Bring your own OpenAI API Key', icon: <Key className="stroke-foreground fill-teal-500/15" /> },
   { href: '/roadmap', name: 'Form Builder', description: 'Complete form builder', icon: <Layers2 className="stroke-foreground fill-blue-500/15" /> },
   { href: '/roadmap', name: 'Page Builder', description: 'Complete control over page design', icon: <Layers className="stroke-foreground fill-pink-500/15" /> },
-  { href: '/roadmap', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3 className="stroke-foreground fill-zinc-500/15" /> }, // fixed
+  { href: '/roadmap', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3 className="stroke-foreground fill-zinc-500/15" /> },
 ];
 
 const useCases: FeatureLink[] = [
@@ -112,22 +112,21 @@ export default function Navbar() {
     <header
       data-state={isMobileMenuOpen ? 'active' : 'inactive'}
       {...(isScrolled && { 'data-scrolled': true })}
-      className="fixed inset-x-0 top-0 z-50"
+      className="sticky top-0 z-50" // <- stick in normal flow so content sits below
     >
       <div
         className={cn(
-          'absolute inset-x-0 top-0 z-50 transition-all duration-300 overflow-visible', // allow dropdown to overflow
-          'in-data-scrolled:border-b in-data-scrolled:bg-background/75 in-data-scrolled:backdrop-blur',
-          'border-foreground/5' // fixed typo
+          'w-full border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-300',
+          'data-[scrolled=true]:shadow-sm'
         )}
       >
         <div className="mx-auto max-w-6xl px-6 lg:px-12">
-          <div className="relative flex items-center justify-between py-3 lg:py-5">
+          <div className="relative flex items-center justify-between py-3 lg:py-4">
             {/* Left: logo + mobile toggle */}
             <div className="flex w-full items-center justify-between gap-8 lg:w-auto">
               <Link href="/" aria-label="home" className="flex items-center gap-2">
-                {/* Use your actual logo path; avoiding spaces in filenames */}
-                <Image src="/full logo.svg" alt="Logo" width={120} height={32} className="h-8 w-auto" />
+                {/* ensure your asset path exists; avoid spaces in filenames */}
+                <Image src="/logo.svg" alt="Logo" width={120} height={32} className="h-8 w-auto" />
               </Link>
 
               <button
@@ -140,7 +139,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Center: desktop nav (no absolute centering to avoid clipping) */}
+            {/* Center: desktop nav */}
             <div className="hidden items-center justify-center lg:flex">
               <NavMenu />
             </div>
@@ -224,9 +223,9 @@ function NavMenu() {
         <NavigationMenuItem value="product">
           <NavigationMenuTrigger>Product</NavigationMenuTrigger>
           <NavigationMenuContent className="origin-top pb-1.5 pl-1 pr-4 pt-1">
-            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-1 pr-18.5">{/* fixed width to avoid cramped layout */}
+            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-3 pr-16">
               {/* Features */}
-              <div className="bg-card row-span-2 grid grid-rows-subgrid gap-1 rounded-xl border p-1 pt-3">
+              <div className="bg-card row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">Features</span>
                 <ul>
                   {features.map((feature, index) => (
@@ -238,7 +237,7 @@ function NavMenu() {
               </div>
 
               {/* More Features */}
-              <div className="bg-card col-span-2 row-span-2 grid grid-rows-subgrid gap-1 rounded-xl border p-1 pt-3">
+              <div className="bg-card col-span-2 row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">More Features</span>
                 <ul className="grid grid-cols-2">
                   {moreFeatures.map((feature, index) => (
@@ -251,26 +250,21 @@ function NavMenu() {
 
               {/* Community card */}
               <div className="row-span-2 grid grid-rows-subgrid">
-                <div className="bg-linear-to-b inset-ring-foreground/10 inset-ring-1 relative row-span-2 grid overflow-hidden rounded-xl bg-yellow-100 from-white via-white/50 to-sky-100 p-1 transition-colors duration-200 hover:bg-yellow-50">
-                  {/* Frame */}
-                  <div className="aspect-3/2 absolute inset-0 px-6 pt-2">
-                    <div className="mask-b-from-35% before:bg-background before:ring-foreground/10 after:ring-foreground/5 after:bg-background/75 before:z-1 group relative -mx-4 h-4/5 px-4 pt-6 before:absolute before:inset-x-6 before:bottom-0 before:top-4 before:rounded-t-xl before:border before:border-transparent before:ring-1 after:absolute after:inset-x-9 after:bottom-0 after:top-2 after:rounded-t-xl after:border after:border-transparent after:ring-1">
-                      <div className="bg-card ring-foreground/10 relative z-10 h-full overflow-hidden rounded-t-xl border border-transparent shadow-xl shadow-black/25 ring-1" />
-                      <div className="pointer-events-none absolute inset-0 z-20 px-4 pt-6">
-                        <div className="h-full overflow-hidden rounded-t-xl">
-                          <Image
-                            src="/images/Community.png"
-                            alt="Prompt Creator"
-                            fill
-                            sizes="(min-width: 1024px) 480px, 60vw"
-                            className="object-cover"
-                            priority
-                          />
-                        </div>
+                <div className="relative row-span-2 grid overflow-hidden rounded-2xl border p-1 bg-gradient-to-b from-white via-white/60 to-sky-100 shadow-sm">
+                  <div className="absolute inset-0 px-6 pt-2">
+                    <div className="relative -mx-4 h-4/5 px-4 pt-6">
+                      <div className="relative z-10 h-full overflow-hidden rounded-t-xl border shadow">
+                        <Image
+                          src="/images/Community.png"
+                          alt="Prompt Creator"
+                          fill
+                          sizes="(min-width: 1024px) 480px, 60vw"
+                          className="object-cover"
+                          priority
+                        />
                       </div>
                     </div>
                   </div>
-                  {/* Caption */}
                   <div className="space-y-0.5 self-end p-3">
                     <NavigationMenuLink asChild className="text-foreground p-0 text-sm font-medium before:absolute before:inset-0 hover:bg-transparent focus:bg-transparent">
                       <Link href="https://www.skool.com/productised-8535/about">Join Our Community</Link>
@@ -286,8 +280,8 @@ function NavMenu() {
         <NavigationMenuItem value="solutions">
           <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
           <NavigationMenuContent className="origin-top pb-1.5 pl-1 pr-4 pt-1">
-            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-1 pr-18.5">
-              <div className="bg-card col-span-2 row-span-2 grid grid-rows-subgrid gap-1 rounded-xl border p-1 pt-3">
+            <div className="min-w-[72rem] grid w-full grid-cols-4 gap-3 pr-16">
+              <div className="bg-card col-span-2 row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">Use Cases</span>
                 <ul className="grid grid-cols-2">
                   {useCases.map((useCase, index) => (
@@ -297,7 +291,7 @@ function NavMenu() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-card row-span-2 grid grid-rows-subgrid gap-1 rounded-xl border p-1 pt-3">
+              <div className="bg-card row-span-2 grid grid-rows-subgrid gap-2 rounded-2xl border p-3">
                 <span className="text-muted-foreground ml-2 text-xs">Flagship Products</span>
                 <ul>
                   {appLinks.map((feature, index) => (
@@ -307,7 +301,7 @@ function NavMenu() {
                   ))}
                 </ul>
               </div>
-              <div className="row-span-2 grid grid-rows-subgrid gap-1 p-1 pt-3">
+              <div className="row-span-2 grid grid-rows-subgrid gap-2 p-1 pt-3">
                 <span className="text-muted-foreground ml-2 text-xs">Content</span>
                 <ul>
                   {contentLinks.map((content, index) => (
