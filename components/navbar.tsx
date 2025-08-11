@@ -29,8 +29,8 @@ import {
   Link2,
   Layers,
   Layers2,
-  Columns3Cog,
-  ChartSpline,
+  Columns3,
+  BarChart3,
   Inbox,
   Bolt,
   BookImage,
@@ -55,11 +55,11 @@ const features: FeatureLink[] = [
 
 const moreFeatures: FeatureLink[] = [
   { href: '/roadmap', name: 'Prompt Chaining', description: 'Link AI steps for smarter outcomes', icon: <Link2 className="stroke-foreground fill-yellow-500/15" /> },
-  { href: '/roadmap', name: 'Analytics', description: 'Track AI usage & leads', icon: <ChartSpline className="stroke-foreground fill-orange-500/15" /> },
+  { href: '/roadmap', name: 'Analytics', description: 'Track AI usage & leads', icon: <BarChart3 className="stroke-foreground fill-orange-500/15" /> },
   { href: '/roadmap', name: 'BYOK', description: 'Bring your own OpenAI API Key', icon: <Key className="stroke-foreground fill-teal-500/15" /> },
   { href: '/roadmap', name: 'Form Builder', description: 'Complete form builder', icon: <Layers2 className="stroke-foreground fill-blue-500/15" /> },
   { href: '/roadmap', name: 'Page Builder', description: 'Complete control over page design', icon: <Layers className="stroke-foreground fill-pink-500/15" /> },
-  { href: '/roadmap', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3Cog className="stroke-foreground fill-zinc-500/15" /> },
+  { href: '/roadmap', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3 className="stroke-foreground fill-zinc-500/15" /> },
 ];
 
 const useCases: FeatureLink[] = [
@@ -107,8 +107,8 @@ const Navbar = () => {
             {/* Left: logo + mobile toggle */}
             <div className="flex w-full items-center justify-between gap-6 lg:w-auto">
               <Link href="/" aria-label="home" className="flex items-center gap-2">
-                {/* Adjust logo path if needed */}
-                <Image src="/logo.svg" alt="Logo" width={112} height={32} className="h-8 w-auto dark:invert-0" />
+                {/* adjust path if your logo differs */}
+                <Image src="/logo.svg" alt="Logo" width={112} height={32} className="h-8 w-auto" />
               </Link>
 
               <button
@@ -146,7 +146,6 @@ const Navbar = () => {
           {mobileOpen && (
             <div className="lg:hidden">
               <nav className="divide-y">
-                {/* Product (features + more features) */}
                 <MobileGroup
                   label="Product"
                   open={openGroup === 'product'}
@@ -156,7 +155,6 @@ const Navbar = () => {
                   <MobileList items={moreFeatures} />
                 </MobileGroup>
 
-                {/* Solutions (use cases + apps + content) */}
                 <MobileGroup
                   label="Solutions"
                   open={openGroup === 'solutions'}
