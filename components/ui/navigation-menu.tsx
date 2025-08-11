@@ -1,3 +1,6 @@
+Gotcha—here’s the updated file with the viewport centering fix (removed the extra `left-1/2 -translate-x-1/2` so it won’t drift right). You can paste this over `components/ui/navigation-menu.tsx`.
+
+```tsx
 'use client';
 
 import * as React from 'react';
@@ -75,8 +78,8 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 /**
- * The important part: center the dropdown viewport and clamp its width.
- * This is what makes the mega menu stop drifting off to the side.
+ * Center the dropdown viewport and clamp its max width.
+ * Wrapper handles centering; viewport stays "relative" with no translate.
  */
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
@@ -86,8 +89,8 @@ const NavigationMenuViewport = React.forwardRef<
     <NavigationMenuPrimitive.Viewport
       ref={ref}
       className={cn(
-        // Center under the header:
-        'relative left-1/2 -translate-x-1/2',
+        // No extra left/translate — wrapper already centers it
+        'relative',
         // Size & shape:
         'h-[var(--radix-navigation-menu-viewport-height)] w-[min(92vw,72rem)] rounded-2xl border bg-popover shadow-lg',
         // Animations:
@@ -111,3 +114,4 @@ export {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 };
+
