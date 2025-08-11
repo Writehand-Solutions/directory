@@ -267,7 +267,7 @@ function NavMenu() {
               <div className="row-span-2 grid grid-rows-subgrid">
                 <div className="relative row-span-2 grid overflow-hidden rounded-2xl border p-1 bg-gradient-to-b from-white via-white/60 to-sky-100 shadow-sm">
                   <div className="absolute inset-0 px-6 pt-2">
-                    <div className="relative -mx-4 h-4/5 px-4 pt-6">
+                    <div className="relative -mx-3 h-4/5 px-4 pt-6">
                       <div className="relative z-10 h-full overflow-hidden rounded-t-xl border shadow">
                         <Image
                           src="/Comm2.png"
