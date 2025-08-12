@@ -18,23 +18,23 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Design x Engineering Directory - Discover Top Web Dev Tools",
+  title: "Productised.ai | Showcase",
   description:
-    "Explore a curated directory of free web development tools for designers and engineers. Find resources for JavaScript, Tailwind CSS, and more!",
+    "Explore a curated productised.ai templates from our community",
   keywords:
-    "Design, Engineering, Web Development, JavaScript, Tailwind CSS, Supabase, Free Tools, Design Engineering",
+    "Productised, AI, AI Productisation, Templates, Productised.ai",
   structuredData: {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    name: "Design x Engineering Directory",
-    url: "https://www.nextjs.design/",
+    name: "Productised.ai Showcase",
+    url: "https://www.productised.ai/",
     description:
-      "A free directory of awesome web development tools for design and engineering professionals.",
+      "A directory of awesome productised.ai templates.",
   },
   socialMediaTags: {
-    "og:title": "Design x Engineering Directory - Discover Top Web Dev Tools",
+    "og:title": "Productised Showcase",
     "og:description":
-      "Explore a curated directory of free web development tools for designers and engineers. Find resources for JavaScript, Tailwind CSS, and more!",
+      "Explore a curated directory of productised.ai templates!",
     "twitter:card": "summary_large_image",
   },
 }
