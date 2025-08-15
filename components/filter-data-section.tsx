@@ -32,46 +32,53 @@ export function FilterDataSection() {
 
   return (
     <div className="relative z-10 w-full">
-      <div className="mt-6 mb-4 flex flex-col gap-6 md:flex-row md:items-start">
+      <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-start">
         {/* Categories */}
-        <div className="flex flex-col items-start gap-2 md:min-w-[12rem]">
-          <BoxIcon className="h-4 w-4 text-yellow-500" />
-          {/* On small screens show in 2 cols to save height; on md keep a single column */}
-          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-1">
+        <div className="md:w-56 md:flex-none min-w-[220px]">
+          <div className="mb-2 flex items-center gap-2">
+            <BoxIcon className="h-4 w-4 text-yellow-500" />
+            <span className="sr-only">Categories</span>
+          </div>
+          {/* Wrap as pills */}
+          <ul className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <li key={category}>
                 <Link
                   href={`/products?category=${encodeURIComponent(category)}`}
                   className={cn(
-                    "block rounded-md px-2 py-1 text-sm font-medium",
+                    "inline-flex items-center whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium",
                     searchParams.get("category") === category
                       ? "bg-yellow-400 text-black"
                       : "bg-white"
                   )}
                 >
-                  {truncateString(category, 18)}
+                  {truncateString(category, 22)}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Industries (responsive grid instead of fixed 3-column flex) */}
-        <div className="flex flex-1 flex-col items-start gap-2">
-          <Tag className="h-4 w-4 text-pink-500" />
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4">
+        {/* Industries */}
+        <div className="flex-1 min-w-[280px]">
+          <div className="mb-2 flex items-center gap-2">
+            <Tag className="h-4 w-4 text-pink-500" />
+            <span className="sr-only">Industries</span>
+          </div>
+          {/* Flexible, wrapping pills to avoid vertical letter stacking */}
+          <ul className="flex flex-wrap gap-2">
             {industries.map((industry) => (
               <li key={industry}>
                 <Link
                   href={`/products?industry=${encodeURIComponent(industry)}`}
                   className={cn(
-                    "block rounded-md px-2 py-1 text-sm font-medium",
+                    "inline-flex items-center whitespace-nowrap rounded-md px-2 py-1 text-sm font-medium",
                     searchParams.get("industry") === industry
                       ? "bg-pink-400 text-black"
                       : "bg-white"
                   )}
                 >
-                  {truncateString(industry, 18)}
+                  {truncateString(industry, 22)}
                 </Link>
               </li>
             ))}
@@ -81,3 +88,4 @@ export function FilterDataSection() {
     </div>
   )
 }
+
