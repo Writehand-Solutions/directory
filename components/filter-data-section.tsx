@@ -31,15 +31,15 @@ export function FilterDataSection() {
   const searchParams = useSearchParams()
 
   return (
-    <div className="relative z-10 w-full">
-      <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-start">
-        {/* Categories */}
-        <div className="md:w-56 md:flex-none min-w-[220px]">
+    <div className="w-full mb-6"> {/* add bottom space so nothing overlaps */}
+      {/* Stack by default, only side-by-side on lg+ */}
+      <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-3">
+        {/* Categories (left) */}
+        <div className="lg:w-56 lg:flex-none">
           <div className="mb-2 flex items-center gap-2">
             <BoxIcon className="h-4 w-4 text-yellow-500" />
             <span className="sr-only">Categories</span>
           </div>
-          {/* Wrap as pills */}
           <ul className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <li key={category}>
@@ -59,13 +59,12 @@ export function FilterDataSection() {
           </ul>
         </div>
 
-        {/* Industries */}
+        {/* Industries (right) */}
         <div className="flex-1 min-w-[280px]">
           <div className="mb-2 flex items-center gap-2">
             <Tag className="h-4 w-4 text-pink-500" />
             <span className="sr-only">Industries</span>
           </div>
-          {/* Flexible, wrapping pills to avoid vertical letter stacking */}
           <ul className="flex flex-wrap gap-2">
             {industries.map((industry) => (
               <li key={industry}>
