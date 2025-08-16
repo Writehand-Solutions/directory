@@ -125,7 +125,7 @@ export default function Navbar() {
           <div className="relative flex items-center justify-between py-3 lg:py-4">
             {/* Left: logo + mobile toggle */}
             <div className="flex w-full items-center justify-between gap-8 lg:w-auto">
-              <Link href="/" aria-label="home" className="flex items-center gap-2">
+              <Link href="https://www.productised.ai" aria-label="home" className="flex items-center gap-2">
                 {/* NOTE: avoid spaces in filenames if possible */}
                 <Image src="/full logo.svg" alt="Logo" width={140} height={32} className="h-8 w-auto" />
               </Link>
@@ -151,7 +151,7 @@ export default function Navbar() {
                 <Link href="https://app.productised.ai/login">Login</Link>
               </Button>
               <Button asChild size="sm">
-                <Link href="/contact">
+                <Link href="https://www.productised.ai/contact">
                   Get Started
                   <ChevronRight className="ml-1 size-4" />
                 </Link>
@@ -336,7 +336,7 @@ function NavMenu() {
 
         <NavigationMenuItem value="pricing">
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/pricing">Pricing</Link>
+            <Link href="https://www.productised.ai/pricing">Pricing</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
