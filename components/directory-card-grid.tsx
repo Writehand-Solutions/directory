@@ -140,7 +140,7 @@ export const EmptyFeaturedGrid = () => {
       punchline: "Next.j, Supabase & Tailwind Starters",
       product_website: "https://www.skool.com/productised-8535/about",
       description:
-        "Join our free community for modern...",
+        "Join our free community for modern experts...",
       logo_src: "/Comm2.png",
       tags: ["featured"],
       labels: ["Community"],
