@@ -31,16 +31,17 @@ export function FilterDataSection() {
   const searchParams = useSearchParams()
 
   return (
-    <div className="w-full mb-6"> {/* add bottom space so nothing overlaps */}
-      {/* Stack by default, only side-by-side on lg+ */}
-      <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-3">
-        {/* Categories (left) */}
-        <div className="lg:w-56 lg:flex-none">
+    // Big bottom margin = hard stop so cards can't overlap (even if they use -mt-*)
+    <div className="w-full mb-10 md:mb-12 xl:mb-14">
+      {/* Stack by default; only side-by-side on xl+ */}
+      <div className="mt-6 flex flex-col gap-3 xl:flex-row xl:items-start xl:gap-3">
+        {/* Categories */}
+        <div className="xl:w-56 xl:flex-none">
           <div className="mb-2 flex items-center gap-2">
             <BoxIcon className="h-4 w-4 text-yellow-500" />
             <span className="sr-only">Categories</span>
           </div>
-          <ul className="flex flex-wrap gap-2">
+          <ul className="flex flex-wrap gap-1.5">
             {categories.map((category) => (
               <li key={category}>
                 <Link
@@ -59,13 +60,13 @@ export function FilterDataSection() {
           </ul>
         </div>
 
-        {/* Industries (right) */}
-        <div className="flex-1 min-w-[280px]">
+        {/* Industries */}
+        <div className="flex-1">
           <div className="mb-2 flex items-center gap-2">
             <Tag className="h-4 w-4 text-pink-500" />
             <span className="sr-only">Industries</span>
           </div>
-          <ul className="flex flex-wrap gap-2">
+          <ul className="flex flex-wrap gap-1.5">
             {industries.map((industry) => (
               <li key={industry}>
                 <Link
@@ -87,4 +88,3 @@ export function FilterDataSection() {
     </div>
   )
 }
-
