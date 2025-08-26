@@ -97,7 +97,8 @@ export default function FooterSection() {
                 <img src="/full logo.svg" alt="Productised Logo" className="h-8 w-auto" />
               </Link>
               <p className="text-muted-foreground text-balance text-sm">
-                Not another vibe-coded side project. Productised is built for professionals creating AI products with purpose.
+                The end-to-end AI Productisation platform — helping you turn expertise into branded, 
+                client-ready AI products that attract leads, deliver results, and scale without limits.
               </p>
             </div>
 
