@@ -57,9 +57,9 @@ interface MobileLink {
 
 /* -------------------- link data -------------------- */
 const features: FeatureLink[] = [
-  { href: 'https://www.productised.ai/roadmap', name: 'AI Products', description: 'With dynamic, branded outputs', icon: <Sparkles className="stroke-foreground fill-green-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Workflow Builder', description: 'Configure AI logic, no-code', icon: <Workflow className="stroke-foreground fill-indigo-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Hosting Included', description: 'No Github or database to connect', icon: <HardDriveDownload className="stroke-foreground fill-blue-500/15" /> },
+  { href: 'https://www.productised.ai/ai-products', name: 'AI Products', description: 'With dynamic, branded outputs', icon: <Sparkles className="stroke-foreground fill-green-500/15" /> },
+  { href: 'https://www.productised.ai/workflow-builder', name: 'Workflow Builder', description: 'Configure AI logic, no-code', icon: <Workflow className="stroke-foreground fill-indigo-500/15" /> },
+  { href: 'https://www.productised.ai/hosting', name: 'Hosting Included', description: 'No Github or database to connect', icon: <HardDriveDownload className="stroke-foreground fill-blue-500/15" /> },
 ];
 
 const appLinks: FeatureLink[] = [
@@ -68,24 +68,24 @@ const appLinks: FeatureLink[] = [
 ];
 
 const moreFeatures: FeatureLink[] = [
-  { href: 'https://www.productised.ai/roadmap', name: 'Prompt Chaining', description: 'Link AI steps for smarter outcomes', icon: <Link2 className="stroke-foreground fill-yellow-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Analytics', description: 'Track AI usage & leads', icon: <BarChart3 className="stroke-foreground fill-orange-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'BYOK', description: 'Bring your own OpenAI API Key', icon: <Key className="stroke-foreground fill-teal-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Form Builder', description: 'Complete form builder', icon: <Layers2 className="stroke-foreground fill-blue-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Page Builder', description: 'Complete control over page design', icon: <Layers className="stroke-foreground fill-pink-500/15" /> },
-  { href: 'https://www.productised.ai/roadmap', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3 className="stroke-foreground fill-zinc-500/15" /> },
+  { href: 'https://www.productised.ai/prompt-chaining', name: 'Prompt Chaining', description: 'Link AI steps for smarter outcomes', icon: <Link2 className="stroke-foreground fill-yellow-500/15" /> },
+  { href: 'https://www.productised.ai/analytics', name: 'Analytics', description: 'Track AI usage & leads', icon: <BarChart3 className="stroke-foreground fill-orange-500/15" /> },
+  { href: 'https://www.productised.ai/byok', name: 'BYOK', description: 'Bring your own OpenAI API Key', icon: <Key className="stroke-foreground fill-teal-500/15" /> },
+  { href: 'https://www.productised.ai/form-builder', name: 'Form Builder', description: 'Complete form builder', icon: <Layers2 className="stroke-foreground fill-blue-500/15" /> },
+  { href: 'https://www.productised.ai/page-builder', name: 'Page Builder', description: 'Complete control over page design', icon: <Layers className="stroke-foreground fill-pink-500/15" /> },
+  { href: 'https://www.productised.ai/custom-branding', name: 'Custom Branding', description: 'Add your own branding and domains', icon: <Columns3 className="stroke-foreground fill-zinc-500/15" /> },
 ];
 
 const useCases: FeatureLink[] = [
-  { href: 'https://www.productised.ai/pricing', name: 'Lead Gen', description: 'Turn AI into inbound funnels', icon: <Inbox className="stroke-foreground fill-emerald-500/25" /> },
-  { href: 'https://www.productised.ai/pricing', name: 'Client Delivery', description: 'Deliver solutions, not pdfs', icon: <ShoppingBag className="stroke-foreground fill-blue-500/15" /> },
-  { href: 'https://www.productised.ai/pricing', name: 'Internal Tools', description: 'Speed up how your team works', icon: <Bolt className="stroke-foreground fill-pink-500/15" /> },
-  { href: 'https://www.productised.ai/pricing', name: 'Outbound AI (enterprise)', description: 'Send smarter cold outreach', icon: <Gem className="stroke-foreground fill-zinc-500/15" /> },
+  { href: 'https://www.productised.ai/lead-gen', name: 'Lead Gen', description: 'Turn AI into inbound funnels', icon: <Inbox className="stroke-foreground fill-emerald-500/25" /> },
+  { href: 'https://www.productised.ai/client-delivery', name: 'Client Delivery', description: 'Deliver solutions, not pdfs', icon: <ShoppingBag className="stroke-foreground fill-blue-500/15" /> },
+  { href: 'https://www.productised.ai/internal-tools', name: 'Internal Tools', description: 'Speed up how your team works', icon: <Bolt className="stroke-foreground fill-pink-500/15" /> },
+  { href: 'https://www.productised.ai/enterprise', name: 'Outbound AI (enterprise)', description: 'Send smarter cold outreach', icon: <Gem className="stroke-foreground fill-zinc-500/15" /> },
 ];
 
 const contentLinks: FeatureLink[] = [
-  { name: 'Learn', href: 'https://www.skool.com/productised-8535/about', icon: <BookOpen className="stroke-foreground fill-purple-500/15" /> },
-  { name: 'Showcase', href: 'https://showcase.productised.ai/', icon: <Croissant className="stroke-foreground fill-red-500/15" /> },
+  { name: 'What is AI Productisation™?', href: 'https://www.productised.ai/ai-productisation', icon: <BookOpen className="stroke-foreground fill-purple-500/15" /> },
+  { name: 'Become a Certified Consultant', href: 'https://www.productised.ai/certified', icon: <Croissant className="stroke-foreground fill-red-500/15" /> },
   { name: 'Blog', href: 'https://www.productised.ai/blog', icon: <Notebook className="stroke-foreground fill-zinc-500/15" /> },
 ];
 
